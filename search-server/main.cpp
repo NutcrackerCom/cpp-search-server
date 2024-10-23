@@ -96,9 +96,6 @@ public:
     explicit SearchServer(const string& stop_words_text)
         : SearchServer(SplitIntoWords(stop_words_text))  // Invoke delegating constructor from string container
     {
-        if (!IsValidWord(stop_words_text)) {
-            throw invalid_argument("stop words contain invalid characters");
-        }
     }
 
     void AddDocument(int document_id, const string& document, DocumentStatus status,
@@ -159,9 +156,8 @@ public:
 
     int GetDocumentId(int index) const {
         if (index >= 0 && index < GetDocumentCount()) {
-            return document_ids_[index];
+            return document_ids_.at(index);
         }
-        throw out_of_range("id pot of range");
     }
 
     tuple<vector<string>, DocumentStatus> MatchDocument(const string& raw_query, int document_id) const {
@@ -226,6 +222,7 @@ private:
             return 0;
         }
         int rating_sum = 0;
+
         for (const int rating : ratings) {
             rating_sum += rating;
         }
@@ -320,7 +317,7 @@ void PrintDocument(const Document& document) {
 }
 
 int main() {
-    SearchServer search_server("-n и в на"s);
+    SearchServer search_server("и в на"s);
 
     search_server.AddDocument(0, "белый кот и модный ошейник"s, DocumentStatus::ACTUAL, {8, -3});
     search_server.AddDocument(1, "пушистый кот пушистый хвост"s, DocumentStatus::ACTUAL, {7, 2, 7});
