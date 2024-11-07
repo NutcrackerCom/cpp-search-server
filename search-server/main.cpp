@@ -1,19 +1,9 @@
-#include <cmath>
-#include <deque>
-#include <iostream>
-#include <map>
-#include <set>
-#include <stdexcept>
 #include <string>
-#include <utility>
+#include <iostream>
 #include <vector>
-#include <cstdint>
-#include "read_input_functions.h"
 #include "document.h"
-#include "string_processing.h"
-#include "paginator.h"
 #include "search_server.h"
-#include "request_queue.h"
+
 
 using namespace std::string_literals;
 using namespace std;
